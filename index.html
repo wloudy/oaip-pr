@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Герои Элисты — Маршрут Памяти</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #2c1e16;
+            --card: #3a2a22;
+            --text: #e8d5b8;
+            --accent: #8d5a2e;
+            --gold: #d4af37;
+        }
+        [data-theme="light"] {
+            --bg: #f5e8d3;
+            --card: #e8d5b8;
+            --text: #3a2a22;
+            --accent: #8d5a2e;
+            --gold: #b8860b;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Roboto', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+
+        header {
+            background: rgba(44, 30, 22, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+        }
+        nav a {
+            color: var(--text);
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        nav a:hover { color: var(--gold); }
+
+        .btn {
+            background: var(--accent);
+            color: white;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.4s;
+        }
+        .btn:hover { transform: scale(1.05); background: #a56b3a; }
+
+        .page { display: none; padding: 60px 0; }
+        .page.active { display: block; animation: fadeIn 0.8s; }
+
+        @keyframes fadeIn { from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);} }
+
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('https://via.placeholder.com/1920x800/4a2c1a/fff?text=ВЕЛИКАЯ+ПОБЕДА') center/cover;
+            color: white;
+            text-align: center;
+            padding: 160px 20px 100px;
+            position: relative;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+        .card {
+            background: var(--card);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: 0.4s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 20px 30px rgba(141, 90, 46, 0.4);
+        }
+
+        form input, form select, form textarea {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            background: var(--card);
+            border: 2px solid #5c4633;
+            border-radius: 8px;
+            color: var(--text);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card);
+        }
+        th, td {
+            padding: 14px;
+            text-align: center;
+            border: 1px solid #5c4633;
+        }
+        th { background: var(--accent); color: white; }
+
+        .disabled { opacity: 0.6; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:20px 0;">
+            <h1 style="color:var(--gold); font-family:'Playfair Display';">ГЕРОИ ЭЛИСТЫ</h1>
+            <nav>
+                <a onclick="showPage('home')">Главная</a>
+                <a onclick="showPage('registration')">Регистрация</a>
+                <a onclick="showPage('schedule')">Расписание</a>
+                <a onclick="showPage('account')">Личный кабинет</a>
+                <a onclick="showPage('route')">Маршрут</a>
+                <a onclick="showPage('404')">404</a>
+                <button id="theme-toggle" onclick="toggleTheme()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;">☀️</button>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!-- ==================== ГЛАВНАЯ ==================== -->
+<div id="home" class="page active">
+    <section class="hero">
+        <h1 style="font-size:3.5rem; margin-bottom:20px;">Маршрут Памяти</h1>
+        <p style="font-size:1.4rem; max-width:800px; margin:0 auto;">2025 — Год Защитника Отечества. Присоединяйся к экскурсии по местам боевой славы.</p>
+    </section>
+
+    <div class="container">
+        <h2 style="text-align:center; margin:50px 0 30px; color:var(--gold);">История Великой Отечественной Войны</h2>
+        <p style="font-size:1.1rem; text-align:justify;">
+            22 июня 1941 года фашистская Германия вероломно напала на Советский Союз. 
+            Более 27 миллионов советских граждан отдали свои жизни за свободу Родины. 
+            Город Элиста, как и вся страна, внес огромный вклад в Великую Победу.
+        </p>
+
+        <div class="cards-grid" style="margin:40px 0;">
+            <div class="card"><h3>9 мая 1945</h3><p>День Великой Победы</p></div>
+            <div class="card"><h3>1418 дней</h3><p>Самая кровопролитная война в истории</p></div>
+            <div class="card"><h3>Элиста</h3><p>Город, который не сдался</p></div>
+        </div>
+
+        <h2 style="text-align:center; margin:60px 0 30px; color:var(--gold);">Герои Элисты</h2>
+        <div class="cards-grid">
+            <div class="card">Иванов Иван Иванович<br><small>Улица Иванова</small></div>
+            <div class="card">Петров Александр Сергеевич<br><small>Площадь Петрова</small></div>
+            <div class="card">Сидорова Мария Васильевна<br><small>Переулок Сидоровой</small></div>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== РЕГИСТРАЦИЯ ==================== -->
+<div id="registration" class="page">
+    <div class="container" style="max-width:700px;">
+        <h2 style="text-align:center; color:var(--gold);">Регистрация на экскурсию</h2>
+        <form id="regForm">
+            <input type="email" id="email" placeholder="E-mail" required>
+            <input type="text" placeholder="Имя" required>
+            <input type="text" placeholder="Фамилия" required>
+            <input type="number" placeholder="Возраст" min="6" required>
+            <select required>
+                <option value="">Пол</option>
+                <option>Мужской</option>
+                <option>Женский</option>
+            </select>
+            <input type="password" placeholder="Пароль" required>
+            <input type="password" placeholder="Повторите пароль" required>
+
+            <h3>Члены семьи</h3>
+            <div id="family" style="border:2px dashed var(--accent); padding:15px; border-radius:10px; margin:15px 0;">
+                <div class="family-member">
+                    <input type="text" placeholder="Имя" style="width:48%; display:inline-block;">
+                    <input type="number" placeholder="Возраст" style="width:48%; display:inline-block;">
+                </div>
+            </div>
+            <button type="button" onclick="addFamilyMember()" class="btn" style="background:#5c4633;">+ Добавить члена семьи</button>
+
+            <label style="display:block; margin:20px 0;">
+                <input type="checkbox" id="consent" required> 
+                Я согласен на обработку персональных данных
+            </label>
+
+            <button type="button" id="regBtn" class="btn" style="width:100%; font-size:1.2rem;" onclick="registerUser()">Зарегистрироваться</button>
+        </form>
+    </div>
+</div>
+
+<!-- ==================== РАСПИСАНИЕ ==================== -->
+<div id="schedule" class="page">
+    <div class="container">
+        <h2 style="text-align:center; color:var(--gold);">Расписание экскурсий</h2>
+        <table>
+            <tr>
+                <th>Экскурсия</th>
+                <th>09:00</th><th>10:00</th><th>11:00</th><th>12:00</th><th>14:00</th><th>15:00</th><th>16:00</th>
+            </tr>
+            <tr><td>По следам героев Элисты</td><td>8</td><td>5</td><td style="background:#8d5a2e;color:white;">0</td><td>7</td><td>6</td><td>4</td><td>9</td></tr>
+            <tr><td>Парк Победы (Москва)</td><td>12</td><td>10</td><td>8</td><td style="background:#8d5a2e;color:white;">2</td><td>11</td><td>7</td><td>5</td></tr>
+        </table>
+    </div>
+</div>
+
+<!-- ==================== ЛИЧНЫЙ КАБИНЕТ ==================== -->
+<div id="account" class="page">
+    <div class="container" style="max-width:800px;">
+        <h2 style="color:var(--gold);">Личный кабинет — <span id="userName">Иван Иванов</span></h2>
+        <p>Добро пожаловать! Вы успешно зарегистрированы.</p>
+        
+        <h3>Записаться на экскурсию</h3>
+        <select id="excursionSelect">
+            <option>По следам героев Элисты</option>
+            <option>Парк Победы, Москва</option>
+        </select>
+        <input type="date" value="2025-07-08">
+        <select>
+            <option>09:00</option><option>10:00</option><option>14:00</option>
+        </select>
+        <input type="number" value="2" min="1" placeholder="Количество человек">
+        <button class="btn" onclick="bookExcursion()">Записаться</button>
+    </div>
+</div>
+
+<!-- ==================== МАРШРУТ (Парк Победы) ==================== -->
+<div id="route" class="page">
+    <div class="container">
+        <h2 style="text-align:center; color:var(--gold);">Маршрут «Парк Победы» — Москва</h2>
+        <p style="font-size:1.2rem; text-align:center;">Один из главных мемориальных комплексов России</p>
+        
+        <div class="cards-grid">
+            <div class="card">
+                <h3>Центральный музей Великой Отечественной войны</h3>
+                <p>Уникальная экспозиция, Книга Памяти, техника военных лет.</p>
+            </div>
+            <div class="card">
+                <h3>Монумент «Штык»</h3>
+                <p>Высочайший обелиск в Европе.</p>
+            </div>
+            <div class="card">
+                <h3>Храм Георгия Победоносца</h3>
+                <p>Главный храм Вооруженных Сил.</p>
+            </div>
+            <div class="card">
+                <h3>Аллея Славы и Вечный огонь</h3>
+                <p>Место памяти и почитания.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== 404 ==================== -->
+<div id="404" class="page">
+    <div class="container" style="text-align:center; padding:120px 20px;">
+        <h1 style="font-size:8rem; color:var(--accent);">404</h1>
+        <h2>Страница не найдена</h2>
+        <p>Но память о героях вечна.</p>
+        <button class="btn" onclick="showPage('home')">Вернуться на главную</button>
+    </div>
+</div>
+
+<script>
+function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+    window.scrollTo(0, 0);
+}
+
+function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    document.getElementById('theme-toggle').textContent = isDark ? '🌙' : '☀️';
+}
+
+function addFamilyMember() {
+    const family = document.getElementById('family');
+    const div = document.createElement('div');
+    div.className = 'family-member';
+    div.style.marginTop = '10px';
+    div.innerHTML = `
+        <input type="text" placeholder="Имя" style="width:48%;display:inline-block;">
+        <input type="number" placeholder="Возраст" style="width:48%;display:inline-block;">
+    `;
+    family.appendChild(div);
+}
+
+// Проверка email и согласие
+document.getElementById('regForm').addEventListener('input', () => {
+    const email = document.getElementById('email').value;
+    const consent = document.getElementById('consent').checked;
+    const btn = document.getElementById('regBtn');
+    
+    const emailValid = email.includes('@') && email.includes('.');
+    btn.disabled = !(emailValid && consent);
+    btn.classList.toggle('disabled', !(emailValid && consent));
+});
+
+function registerUser() {
+    alert('✅ Регистрация прошла успешно!\nВы вошли как Иван Иванов.');
+    document.getElementById('userName').textContent = 'Иван Иванов';
+    showPage('account');
+}
+
+function bookExcursion() {
+    alert('🎉 Вы успешно записаны на экскурсию в Парк Победы!');
+}
+
+// Инициализация
+document.addEventListener('DOMContentLoaded', () => {
+    showPage('home');
+});
+</script>
+
+</body>
+</html>
